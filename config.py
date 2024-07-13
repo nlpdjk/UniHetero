@@ -30,7 +30,6 @@ class Config:
         self.learning_rate = config["learning_rate"]
         self.weight_decay = config["weight_decay"]
         self.clip_grad_norm = config["clip_grad_norm"]
-        # self.bert_name = config["bert_name"]
         self.bert_path = config["bert_path"]
         
         self.bert_learning_rate = config["bert_learning_rate"]
