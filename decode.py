@@ -6,21 +6,23 @@ from collections import defaultdict, deque
 
 def get_logger(dataset):
     pathname = "./log/{}_{}.txt".format(dataset, time.strftime("%m-%d_%H-%M-%S"))
-    logger = logging.getLogger()
+    logger = logging.getLogger(dataset)  # Use the dataset name to create a unique logger
     logger.setLevel(logging.INFO)
     formatter = logging.Formatter("%(asctime)s - %(levelname)s: %(message)s",
                                   datefmt='%Y-%m-%d %H:%M:%S')
 
-    file_handler = logging.FileHandler(pathname)
-    file_handler.setLevel(logging.DEBUG)
-    file_handler.setFormatter(formatter)
+    # Check if the logger already has handlers to avoid duplicate logging
+    if not logger.handlers:
+        file_handler = logging.FileHandler(pathname)
+        file_handler.setLevel(logging.DEBUG)
+        file_handler.setFormatter(formatter)
 
-    stream_handler = logging.StreamHandler()
-    stream_handler.setLevel(logging.DEBUG)
-    stream_handler.setFormatter(formatter)
+        stream_handler = logging.StreamHandler()
+        stream_handler.setLevel(logging.DEBUG)
+        stream_handler.setFormatter(formatter)
 
-    logger.addHandler(file_handler)
-    logger.addHandler(stream_handler)
+        logger.addHandler(file_handler)
+        logger.addHandler(stream_handler)
 
     return logger
 
@@ -51,8 +53,8 @@ def convert_text_to_index(text):
 def decode(outputs, entities, length):
     class Node:
         def __init__(self):
-            self.THW = []                # [(tail, type)]
-            self.NNW = defaultdict(set)   # {(head,tail): {next_index}}
+            self.Label = []                # [(tail, type)]
+            self.ENT = defaultdict(set)   # {(head,tail): {next_index}}
 
     ent_r, ent_p, ent_c = 0, 0, 0
     decode_entities = []
@@ -63,21 +65,21 @@ def decode(outputs, entities, length):
         for cur in reversed(range(l)):
             heads = []
             for pre in range(cur+1):
-                # THW
+                # Label
                 if instance[cur, pre] > 1: 
-                    nodes[pre].THW.append((cur, instance[cur, pre]))
+                    nodes[pre].Label.append((cur, instance[cur, pre]))
                     heads.append(pre)
-                # NNW
+                # ENT
                 if pre < cur and instance[pre, cur] == 1:
                     # cur node
                     for head in heads:
-                        nodes[pre].NNW[(head,cur)].add(cur)
+                        nodes[pre].ENT[(head,cur)].add(cur)
                     # post nodes
-                    for head,tail in nodes[cur].NNW.keys():
+                    for head,tail in nodes[cur].ENT.keys():
                         if tail >= cur and head <= pre:
-                            nodes[pre].NNW[(head,tail)].add(cur)
+                            nodes[pre].ENT[(head,tail)].add(cur)
             # entity
-            for tail,type_id in nodes[cur].THW:
+            for tail,type_id in nodes[cur].Label:
                 if cur == tail:
                     predicts.append(([cur], type_id))
                     continue
@@ -85,7 +87,7 @@ def decode(outputs, entities, length):
                 q.append([cur])
                 while len(q) > 0:
                     chains = q.pop()
-                    for idx in nodes[chains[-1]].NNW[(cur,tail)]:
+                    for idx in nodes[chains[-1]].ENT[(cur,tail)]:
                         if idx == tail:
                             predicts.append((chains + [idx], type_id))
                         else:
