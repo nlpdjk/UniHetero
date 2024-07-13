@@ -133,11 +133,11 @@ class ECAAttention(nn.Module):
                     init.constant_(m.bias, 0)
 
     def forward(self, x):
-        y=self.gap(x) #bs,c,1,1
-        y=y.squeeze(-1).permute(0,2,1) #bs,1,c
-        y=self.conv(y) #bs,1,c
-        y=self.sigmoid(y) #bs,1,c
-        y=y.permute(0,2,1).unsqueeze(-1) #bs,c,1,1
+        y=self.gap(x) 
+        y=y.squeeze(-1).permute(0,2,1) 
+        y=self.conv(y) 
+        y=self.sigmoid(y) 
+        y=y.permute(0,2,1).unsqueeze(-1)
         return x*y.expand_as(x)
 
 
@@ -205,11 +205,9 @@ class CoPredictor(nn.Module):
         t = self.dropout(self.mlp2(y))
         o1 = self.mutibiaffine(h, t)
         o11 = self.mlp3(o1)
-
         z = self.dropout(self.mlp_rel(z))
         o2 = self.linear(z)
         o3 = self.danet(o11 + o2)
-
         return o3
 
 
