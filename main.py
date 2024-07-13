@@ -47,9 +47,6 @@ class Trainer(object):
         pred_result = []
         label_result = []
 
-        start_time = time.time()
-        initial_memory = torch.cuda.memory_allocated()
-
         for i, data_batch in enumerate(data_loader):
 
             data_batch = [data.cuda() for data in data_batch[:-1]]
@@ -57,12 +54,6 @@ class Trainer(object):
             bert_inputs, grid_labels, grid_mask2d, pieces2word, dist_inputs, sent_length = data_batch
 
             outputs = model(bert_inputs, grid_mask2d, dist_inputs, pieces2word, sent_length)
-
-            '''推理占用显存'''
-            # allocated_memory = torch.cuda.memory_allocated()
-            # cached_memory = torch.cuda.memory_cached()
-            # print(f"Allocated memory: {allocated_memory}")
-            # print(f"Cached memory: {cached_memory}")
 
             grid_mask2d = grid_mask2d.clone()
             loss = self.criterion(outputs[grid_mask2d], grid_labels[grid_mask2d])
@@ -82,15 +73,7 @@ class Trainer(object):
             pred_result.append(outputs.cpu())
 
             self.scheduler.step()
-
-        final_memory = torch.cuda.memory_allocated()
-        end_time = time.time()
-        
-        inference_time = end_time - start_time
-        memory_usage = final_memory - initial_memory
-        print(f"Inference Time: {inference_time:.4f} seconds")
-
-        print(f"Memory Usage: {memory_usage / 1024**2:.2f} MB")   
+  
         label_result = torch.cat(label_result)
         pred_result = torch.cat(pred_result)
 
