@@ -18,12 +18,12 @@
 ```
 
 ## 1. Download dataset:Download and process the data in the same format as in `data/`.
-```
+
 - [GENIA](http://www.geniaproject.org/genia-corpus)
 - [CADEC](https://pubmed.ncbi.nlm.nih.gov/25817970/)
 - [Conll 2003](https://www.clips.uantwerpen.be/conll2003/ner/)
 - [Resume](https://github.com/jiesutd/LatticeLSTM)
-```
+
 
 ## 2. Download the appropriate version of bert into the `bert/`.
 
