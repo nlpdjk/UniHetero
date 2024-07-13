@@ -1,4 +1,4 @@
-## 1. Download dataset:Download and process the data in the same format as in `data/`.
+## 1. Download and process the data in the same format as in `data/`.
 
 - [GENIA](http://www.geniaproject.org/genia-corpus)
 - [CADEC](https://pubmed.ncbi.nlm.nih.gov/25817970/)
