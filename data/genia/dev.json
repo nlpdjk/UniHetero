@@ -1,0 +1,1 @@
+[{"sentence": ["IL-2", "gene", "expression", "and", "NF-kappa", "B", "activation", "through", "CD28", "requires", "reactive", "oxygen", "production", "by", "5-lipoxygenase", "."], "ner": [{"index": [14], "type": "protein"}, {"index": [4, 5], "type": "protein"}, {"index": [0, 1], "type": "DNA"}, {"index": [8], "type": "protein"}]}]
