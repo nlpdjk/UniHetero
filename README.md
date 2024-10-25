@@ -1,6 +1,6 @@
 ## 1. Download and process the data in the same format as in `data/`.
 
-- [GENIA](http://www.geniaproject.org/genia-corpus)
+- [GENIA](https://drive.google.com/file/d/1DkqYm3mjcL8w_2Nd3YX-tOT-r2PeOrJZ/view?usp=sharing)
 - [CADEC](https://pubmed.ncbi.nlm.nih.gov/25817970/)
 - [Conll 2003](https://www.clips.uantwerpen.be/conll2003/ner/)
 - [Resume](https://github.com/jiesutd/LatticeLSTM)
