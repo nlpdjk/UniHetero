@@ -22,7 +22,6 @@ dis2idx[64:] = 7
 dis2idx[128:] = 8
 dis2idx[256:] = 9
 
-
 class Vocabulary(object):
     PAD = '<pad>'
     UNK = '<unk>'
