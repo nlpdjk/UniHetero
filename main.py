@@ -15,7 +15,6 @@ import data_loader
 import decode
 from model import Model
 
-
 class Trainer(object):
     def __init__(self, model):
         self.model = model
