@@ -3,7 +3,6 @@ import pickle
 import time
 from collections import defaultdict, deque
 
-
 def get_logger(dataset):
     pathname = "./log/{}_{}.txt".format(dataset, time.strftime("%m-%d_%H-%M-%S"))
     logger = logging.getLogger(dataset)  # Use the dataset name to create a unique logger
