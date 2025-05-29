@@ -5,7 +5,7 @@
 - [Conll 2003](https://www.clips.uantwerpen.be/conll2003/ner/)
 - [Resume](https://github.com/jiesutd/LatticeLSTM)
 
-
+   
 ## 2. Download the appropriate version of bert into the `bert/`.
 
 ## 3. Environments
