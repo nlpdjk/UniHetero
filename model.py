@@ -109,7 +109,6 @@ class ConvolutionLayer(nn.Module):
         outputs = outputs.permute(0, 2, 3, 1).contiguous()
         return outputs
 
-
 class ECAAttention(nn.Module):
 
     def __init__(self, kernel_size=3):
