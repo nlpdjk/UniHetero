@@ -1,6 +1,6 @@
 import json
 
-
+  
 class Config:
     def __init__(self, args):
         with open(args.config, "r", encoding="utf-8") as f:
